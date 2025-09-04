@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
       <Stack.Navigator initialRouteName="TaskList">
         <Stack.Screen
           name="TaskList"
