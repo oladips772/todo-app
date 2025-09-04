@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/** @format */
+
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,18 +11,18 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddTaskScreen = ({ navigation }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const saveTask = async () => {
     // Validate input
     if (!title.trim()) {
-      Alert.alert('Error', 'Please enter a task title');
+      Alert.alert("Error", "Please enter a task title");
       return;
     }
 
@@ -28,7 +30,7 @@ const AddTaskScreen = ({ navigation }) => {
 
     try {
       // Load existing tasks
-      const storedTasks = await AsyncStorage.getItem('tasks');
+      const storedTasks = await AsyncStorage.getItem("tasks");
       const tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
       // Create new task
@@ -44,13 +46,13 @@ const AddTaskScreen = ({ navigation }) => {
       const updatedTasks = [newTask, ...tasks];
 
       // Save updated tasks
-      await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+      await AsyncStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
       // Navigate back to task list
       navigation.goBack();
     } catch (error) {
-      console.error('Error saving task:', error);
-      Alert.alert('Error', 'Failed to save task. Please try again.');
+      console.error("Error saving task:", error);
+      Alert.alert("Error", "Failed to save task. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +61,7 @@ const AddTaskScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.formContainer}>
@@ -102,13 +104,13 @@ const AddTaskScreen = ({ navigation }) => {
             <TouchableOpacity
               style={[
                 styles.saveButton,
-                (!title.trim() || isLoading) && styles.saveButtonDisabled
+                (!title.trim() || isLoading) && styles.saveButtonDisabled,
               ]}
               onPress={saveTask}
               disabled={!title.trim() || isLoading}
             >
               <Text style={styles.saveButtonText}>
-                {isLoading ? 'Saving...' : 'Save Task'}
+                {isLoading ? "Saving..." : "Save Task"}
               </Text>
             </TouchableOpacity>
           </View>
@@ -121,7 +123,7 @@ const AddTaskScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: "#F9FAFB",
   },
   scrollContainer: {
     flexGrow: 1,
@@ -135,58 +137,58 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
+    fontWeight: "600",
+    color: "#374151",
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: "#D1D5DB",
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    backgroundColor: 'white',
-    color: '#111827',
+    backgroundColor: "white",
+    color: "#111827",
   },
   textArea: {
     height: 100,
     paddingTop: 12,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 32,
     gap: 12,
   },
   cancelButton: {
     flex: 1,
-    paddingVertical: 16,
+    paddingVertical: 13,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    borderColor: "#D1D5DB",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   cancelButtonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#6B7280',
+    fontWeight: "600",
+    color: "#6B7280",
   },
   saveButton: {
     flex: 1,
-    paddingVertical: 16,
+    paddingVertical: 13,
     borderRadius: 8,
-    alignItems: 'center',
-    backgroundColor: '#3B82F6',
+    alignItems: "center",
+    backgroundColor: "#3B82F6",
   },
   saveButtonDisabled: {
-    backgroundColor: '#9CA3AF',
+    backgroundColor: "#9CA3AF",
   },
   saveButtonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
   },
 });
 
